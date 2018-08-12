@@ -1,0 +1,36 @@
+---
+- hosts: all
+  become: true
+  tasks:
+#	memasang web server pilih salah satu apache atau nginx	
+    - name: install Apache
+      apt: name=apache2 state=present
+#    - name: install nginx
+#      apt: name=nginx state=present
+#	memasang database server pilih salah satu mysql-server atau mariadb
+#    - name: install mysqlserver
+#      apt: name=mysql-server state=present
+    - name: install mariadb
+      apt: name=mariadb-server state=present
+#	memasang php5 untuk apache
+    - name: install php5 apache2
+      apt: name=php5 state=present
+#	menyalin index.html dari host ke server. pilih salah satu apache atau nginx
+    - name: copy html for apache2
+      copy: src=/home/alfian/myplatform/index.html dest=/var/www/html/index.html
+#    - name: copy html for nginx
+#      copy: src=/home/alfian/myplatform/index.html dest=/usr/share/nginx/html/index.html
+#	menyalin phpinfo.php dari host ke server. pilih salah satu apache atau nginx
+    - name: copy phpinfo for apache2
+      copy: src=/home/alfian/myplatform/index.php dest=/var/www/html/index.php
+#    - name: copy phpinfo for nginx
+#      copy: src=/home/alfian/myplatform/index.php dest=/usr/share/nginx/html/index.php
+#	memasang python db agar bisa membuat user database otomatis
+    - name: install pythone db
+      apt: name=python-mysqldb state=present
+#	membuat user baru database 
+    - name: create user and password mysql
+      mysql_user: user=alfian password=alfian priv=*.*:ALL state=present
+#	membuat database baru
+    - name: crate database
+      mysql_db: db=test state=present
