@@ -1,0 +1,4 @@
+---
+- include: install_lemp.yml
+- include: copy_code.yml
+

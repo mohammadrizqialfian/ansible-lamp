@@ -1,0 +1,9 @@
+    - name: copy phpinfo for nginx
+      copy: src=../templates/index.php dest=/usr/share/nginx/html/index.php
+      notify:
+      - restart-nginx
+    - name: copy html for nginx
+      copy: src=../templates/index.html dest=/usr/share/nginx/html/index.html
+      notify:
+      - restart-nginx
+

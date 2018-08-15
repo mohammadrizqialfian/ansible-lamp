@@ -1,0 +1,8 @@
+    - name: copy html for apache2
+      copy: src=../templates/index.html dest=/var/www/html/index.html
+      notify:
+      - restart-apache
+    - name: copy phpinfo for apache2
+      copy: src=../templates/index.php dest=/var/www/html/index.php
+      notify:
+      - restart-apache
